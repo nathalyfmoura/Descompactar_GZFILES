@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
+
 
 namespace descompactar
 {
@@ -18,11 +20,14 @@ namespace descompactar
         {
             InitializeComponent();
         }
+       
+        private static readonly string directoryPath = ConfigurationManager.AppSettings["directoryPath"];
 
-        private static string directoryPath = @"C:\\pablo";
+        public static string DirectoryPath => directoryPath;
+
         private void button1_Click(object sender, EventArgs e)
         {
-            DirectoryInfo directorySelected = new DirectoryInfo(directoryPath);
+            DirectoryInfo directorySelected = new DirectoryInfo(DirectoryPath);
             foreach (FileInfo fileToDecompress in directorySelected.GetFiles("*.gz"))
             {
                 Decompress(fileToDecompress);
